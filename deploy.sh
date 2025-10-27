@@ -23,12 +23,12 @@ fi
 # Créer / mettre à jour le fichier .env
 echo "Création du fichier .env"
 cat > "$ENV_FILE" <<EOL
-DB_HOST=127.0.0.1
+DB_HOST=mysql
 DB_PORT=3306
 DB_NAME=labo05_db
 DB_USER=labo05
 DB_PASS=${DB_PASS}
-REDIS_HOST=127.0.0.1
+REDIS_HOST=redis
 REDIS_PORT=6379
 REDIS_DB=0
 EOL

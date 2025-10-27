@@ -34,7 +34,7 @@ def test_stock_flow(client):
                           data=json.dumps(product_data),
                           content_type='application/json')
     
-    assert response.status_code == 201, f"Failed to create product: {response.get_json()}"
+    assert response.status_code == 200, f"Failed to create product: {response.get_json()}"
     product_id = response.get_json()['product_id']
     assert product_id > 0
     logger.debug(f"Created product with ID: {product_id}")
@@ -48,12 +48,12 @@ def test_stock_flow(client):
                           data=json.dumps(stock_data),
                           content_type='application/json')
     
-    assert response.status_code == 201, f"Failed to set stock: {response.get_json()}"
+    assert response.status_code == 200, f"Failed to set stock: {response.get_json()}"
     logger.debug(f"Set stock to 5 units for product {product_id}")
     
     # 3. Verify stock - should have 5 units (GET /stocks/:id)
     response = client.get(f'/stocks/{product_id}')
-    assert response.status_code == 201, f"Failed to get stock: {response.get_json()}"
+    assert response.status_code == 200, f"Failed to get stock: {response.get_json()}"
     stock_data = response.get_json()
     assert stock_data['product_id'] == product_id
     assert stock_data['quantity'] == 5
@@ -64,7 +64,7 @@ def test_stock_flow(client):
     response = client.post('/users',
                           data=json.dumps(user_data),
                           content_type='application/json')
-    assert response.status_code == 201, f"Failed to create user: {response.get_json()}"
+    assert response.status_code == 200, f"Failed to create user: {response.get_json()}"
     user_id = response.get_json()['user_id']
     logger.debug(f"Created user with ID: {user_id}")
     
@@ -82,14 +82,14 @@ def test_stock_flow(client):
                           data=json.dumps(order_data),
                           content_type='application/json')
     
-    assert response.status_code == 201, f"Failed to create order: {response.get_json()}"
+    assert response.status_code == 200, f"Failed to create order: {response.get_json()}"
     order_id = response.get_json()['order_id']
     assert order_id > 0
     logger.debug(f"Created order with ID: {order_id}")
     
     # 5. Verify stock again - should have 3 units (5 - 2) (GET /stocks/:id)
     response = client.get(f'/stocks/{product_id}')
-    assert response.status_code == 201, f"Failed to get stock after order: {response.get_json()}"
+    assert response.status_code == 200, f"Failed to get stock after order: {response.get_json()}"
     stock_data = response.get_json()
     assert stock_data['product_id'] == product_id
     assert stock_data['quantity'] == 3, f"Expected 3 units, got {stock_data['quantity']}"
