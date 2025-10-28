@@ -46,7 +46,7 @@ jobs:
           echo "DB_PORT=3306" >> .env
           echo "DB_NAME=labo5_db" >> .env
           echo "DB_USER=labo05" >> .env
-          echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASS }}" >> .env
           echo "REDIS_HOST=127.0.0.1" >> .env
           echo "REDIS_PORT=6379" >> .env
           echo "REDIS_DB=0" >> .env
@@ -91,7 +91,7 @@ jobs:
             echo "DB_PORT=3306"
             echo "DB_NAME=labo05_db"
             echo "DB_USER=labo05"
-            echo "DB_PASS=${{ secrets.DB_PASS }}"
+            echo "DB_PASSWORD=${{ secrets.DB_PASS }}"
           } > .env
 
       - name: Install dependencies on VM
