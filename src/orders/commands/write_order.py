@@ -66,16 +66,15 @@ def add_order(user_id: int, items: list):
 
         # NOTE: Le code permettant de mettre à jour le stock est commenté à dessein. 
         # Dans Saga, nous effectuerons les mises à jour des stocks dans une étape distincte.
-
-        # Update stock
         #check_out_items_from_stock(session, order_items)
+        #update_stock_redis(order_items, '-')
 
         session.commit()
         logger.debug("Une commande a été ajouté")
 
-        # Insert order into Redis
-        #update_stock_redis(order_items, '-')
-        #add_order_to_redis(order_id, user_id, total_amount, items, new_order.payment_link)
+        # NOTE: il faut mettre à jour le lien de paiement si la création du paiement (CREATING_PAYMENT) a réussi
+        payment_link = None
+        add_order_to_redis(order_id, user_id, total_amount, items, payment_link)
         return order_id
 
     except Exception as e:
