@@ -73,7 +73,7 @@ def add_order(user_id: int, items: list):
         logger.debug("Une commande a été ajouté")
 
         # NOTE: il faut mettre à jour le lien de paiement si la création du paiement (CREATING_PAYMENT) a réussi
-        payment_link = None
+        payment_link = ""
         add_order_to_redis(order_id, user_id, total_amount, items, payment_link)
         return order_id
 
